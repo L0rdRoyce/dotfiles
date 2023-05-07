@@ -98,6 +98,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym $mod+b exec /usr/bin/brave
 bindsym $mod+n exec /usr/bin/thunar
 bindsym $mod+w exec /usr/bin/whatsapp-nativefier
+bindsym $mod+m exec emacsclient -c -a 'run_vim'
 
 ###################
 # Window Keybinds #
@@ -232,6 +233,7 @@ bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
 # bind programs to workspace
+assign [class="Emacs"] $ws1
 assign [class="whatsapp-nativefier"] $ws3
 
 # automatic set focus new window if it opens on another workspace
