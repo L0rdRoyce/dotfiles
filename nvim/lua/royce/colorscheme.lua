@@ -1,7 +1,13 @@
-
+-- navarasu/onedark.nvim
 require('onedark').setup {
-    style = 'deep'
+    style = 'deep',
+    transparent = true,
+    lualine = {
+        transparent = false,
+    },
+    highlights = {
+        ["signcolumn"] = { bg = '$bg0' }, 
+    }
 }
 
-vim.cmd("colorscheme onedark")
--- vim.cmd("colorscheme molokai")
+require('onedark').load()

@@ -1,14 +1,15 @@
+local keymap = vim.keymap
 vim.g.mapleader = " "
 
-local keymap = vim.keymap
-
 --general keymaps
-
-keymap.set("n", "<leader>pv", vim.cmd.Ex)
 keymap.set("n", "<leader>nh", ":nohl<CR>")
 keymap.set("n", "x", '"_x')
+
+-- window management
+
 
 -- plugin keymaps
 
 -- nvim-tree
-keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") 
+keymap.set("n", "<leader>ec", ":NvimTreeToggle<CR>") 
+keymap.set("n", "<leader>eo", ":NvimTreeFocus<CR>") 

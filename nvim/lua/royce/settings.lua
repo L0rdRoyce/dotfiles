@@ -28,14 +28,14 @@ opt.smartcase = true
 opt.hlsearch = true
 opt.incsearch = true
 
+-- cursor line
+opt.cursorline = true
+
 -- appearance
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
 -- opt.colorcolumn = "60"
-
---backspace
-opt.backspace = "indent,eol,start"
 
 --clipboard (xclip)
 opt.clipboard:append("unnamedplus")
@@ -46,5 +46,5 @@ opt.splitbelow = true
 
 --misc
 opt.updatetime = 50
-opt.iskeyword:append("-")
+-- opt.iskeyword:append("-")
 

@@ -1,4 +1,4 @@
---
+
 -- auto-install packer if not installed
 local ensure_packer = function()
     local fn = vim.fn
@@ -33,12 +33,12 @@ return require('packer').startup(function(use)
 
     --My Plugins here
     -- colorscheme
-    use 'tamelion/neovim-molokai'
     use 'navarasu/onedark.nvim'
+
     -- File explorer
     use 'nvim-tree/nvim-tree.lua'
     use 'nvim-tree/nvim-web-devicons'
-    
+
     -- Statusline
     use 'nvim-lualine/lualine.nvim'
 
