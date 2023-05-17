@@ -28,13 +28,16 @@ font pango:monospace 12
 exec_always --no-startup-id setxkbmap -layout us -variant dvorak -option ctrl:nocaps
 
 # Disable Touchpad on start
-exec_always /usr/bin/myscripts/toggle-touchpad.sh
+exec_always toggle-touchpad.sh
+
+# solves tumbler hang problem according to arch wike
+exec_always tumbler-hang.sh
 
 # num lock activated
 exec --no-startup-id numlockx on
 
 # wallpaper
-exec --no-startup-id sleep 1 && feh --bg-tile ~/Pic/Wallpapers/itachi.jpg
+exec --no-startup-id sleep 1 && feh --bg-tile ~/pic/Wallpapers/itachi.jpg
 
 # flameshot (screenshot tool)
 exec --no-startup-id /usr/bin/flameshot
@@ -70,7 +73,7 @@ smart_borders on
 bindsym $mod+q kill
 
 # Touchpad toggle
-bindsym XF86TouchpadToggle exec /usr/bin/myscripts/toggle-touchpad.sh
+bindsym XF86TouchpadToggle exec toggle-touchpad.sh
 
 # lock screen with betterlockscreen
 bindsym XF86ScreenSaver exec "betterlockscreen -l"
@@ -259,11 +262,11 @@ set $dred	#300a0a80
 set $ured	#b22727
 set $reed	#FF0000
 
-#			<brdr>	<bg>	<txt>	<ind>	<chld-brdr>
-client.focused		$black	$black	$rtxt	$red	$reed
+#			            <brdr>	<bg>	<txt>	<ind>	<chld-brdr>
+client.focused		    $black	$black	$rtxt	$red	$reed
 client.focused_inactive	$black	$black	$rtxt	$red	$reed
-client.unfocused	$black	$black	$rtxt	$red	$reed
-client.urgent		$black	$black	$rtxt	$ured	$reed
+client.unfocused	    $black	$black	$rtxt	$red	$reed
+client.urgent		    $black	$black	$rtxt	$ured	$reed
 client.background	$black
 
 ######################
@@ -298,6 +301,6 @@ exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 
 
-####			####
+####	        		####
 #### END OF CONFIG FILE ####
-####			####
+####		        	####
