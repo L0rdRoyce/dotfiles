@@ -28,3 +28,11 @@ font:
   bold_italic:
     family: JetBrains Mono Nerd Font
     style: Bold Italic
+
+  size: 8.5
+
+colors:
+  cursor:
+    text: '#00FF48'
+    cursor: '#992525'
+
