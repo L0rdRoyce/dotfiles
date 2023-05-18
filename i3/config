@@ -18,7 +18,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # Font for window titles. 
-font pango:monospace 12
+font pango:JetBrains Mono Nerd Font 11
 
 ####################################
 # Autostart applications/processes #
@@ -55,7 +55,7 @@ default_floating_border pixel 3
 
 # set GAPS
 gaps outer 0
-gaps inner 20
+gaps inner 15
 smart_gaps on
 
 # hide edge borders (Smart borders)
@@ -274,15 +274,16 @@ client.background	$black
 ######################
 
 bar {
-        status_command i3status -c ~/.config/i3status/i3status.conf
-	i3bar_command i3bar --transparency
-	position top
-	padding 0px 10px 
-	tray_output none
-	colors {
-		background $dred
-		separator  $white
-		statusline $txt
+
+    status_command i3status -c ~/.config/i3status/i3status.conf
+    i3bar_command i3bar --transparency
+    position top
+    padding 0px 5px 
+    tray_output none
+    colors {
+        background $dred
+        separator  $white
+        statusline $txt
 
 #		<colorclass>		<brdr>	<bg>	<txt>
 		focused_workspace	$black	$teal	$black
