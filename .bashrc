@@ -27,15 +27,16 @@ alias lal='ls -al --color=auto'
 alias grep='grep --color=auto'
 
 # https://askubuntu.com/questions/517677/how-do-i-get-a-colored-bash
-# 156, 228, 203
 
 rightprompt() {
     green=$(tput setaf 156)
     yellow=$(tput setaf 228)
     red=$(tput setaf 203)
-    printf "%*s" $COLUMNS "${green}$(date +%a), ${yellow}$(date +%b\ %d), ${red}$(date +%H:%M)"
+    printf "%*s" "$((COLUMNS+33))" "${green}$(date +%a), ${yellow}$(date +%b\ %d), ${red}$(date +%H:%M)"
+    #https://superuser.com/questions/1785177/adding-color-to-bash-right-prompt-causes-unwanted-behaviour
 }
-PS1='\n\[$(tput sc; rightprompt; tput rc)\]╭─\[\e[1;33m\]\u\[\e[31m\]@\[\e[32m\]\h\[\e[m\] in \[\e[1;36m\]\w\[\e[m\]$(__git_ps1 " | \[\e[30;47m\]  \[\e[38:5:88m\]%s \[\e[m\]")\n╰─\[\e[35m\]\[\e[m\] '
+
+PS1='\n\[$(tput sc; rightprompt; tput rc)\]╭─\[\e[1;33m\]\u\[\e[31m\]@\[\e[32m\]\h\[\e[m\] in \[\e[1;36m\]\w\[\e[m\]\[$(__git_ps1 " | \[\e[30;47m\]  \[\e[38:5:88m\]%s \[\e[m\]")\]\n╰─\[\e[38:5:75m\]\[\e[m\] ';
 
 alias vim='nvim'
 alias emacs="emacsclient -c -a 'nvim'"
