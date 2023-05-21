@@ -27,10 +27,10 @@ font pango:JetBrains Mono Nerd Font 11
 # Keyboard settings
 exec_always --no-startup-id setxkbmap -layout us -variant dvorak -option ctrl:nocaps
 
-# Disable Touchpad on start
+# Disablke Touchpad on start
 exec_always toggle-touchpad.sh
 
-# solves tumbler hang problem according to arch wike
+# solves tumblker hang problkem according to arch wike
 exec_always tumbler-hang.sh
 
 # num lock activated
@@ -139,13 +139,8 @@ bindsym $mod+Shift+Right move right
 # toggle next window split
 bindsym $mod+v split toggle
 
-# split in horizontal orientation
-#bindsym $mod+<not h> split h
 
-# split in vertical orientation
-#bindsym $mod+<not v> split v
-
-# enter fullscreen mode for the focused container
+ # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
@@ -200,7 +195,7 @@ bindsym $mod+r mode "resize"
 ######################
 
 # Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
+# We use variablkes to avoid repeating the names in multiple places.
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -251,23 +246,23 @@ assign [class="whatsapp-nativefier"] $ws4
 # Window Colors #
 #################
 
-set $black	#000000
-set $white	#ffffff
-set $rtxt	#978484
-set $ttxt	#b5c0c0
-set $teal	#197373
-set $dteal	#0a3030
-set $red	#731919
-set $dred	#300a0a80
-set $ured	#b22727
-set $reed	#FF0000
+# general colors
+set $blk	#000000
+set $wht	#ffffff
+set $red	#ff0000
+set $ind	#ffb2b2
+
+# i3bar colors
+set $bg0	#1a212e80
+set $brd	#1c4a6e
+set $txt	#93a4c3
 
 #			            <brdr>	<bg>	<txt>	<ind>	<chld-brdr>
-client.focused		    $black	$black	$rtxt	$red	$reed
-client.focused_inactive	$black	$black	$rtxt	$red	$reed
-client.unfocused	    $black	$black	$rtxt	$red	$reed
-client.urgent		    $black	$black	$rtxt	$ured	$reed
-client.background	$black
+client.focused		    $blk	$blk	$wht	$ind	$red
+client.focused_inactive	$blk	$blk	$wht	$ind	$red
+client.unfocused	    $blk	$blk	$wht	$ind	$red
+client.urgent		    $blk	$blk	$wht	$ind	$red
+client.background	$blk
 
 ######################
 # i3-bar & i3-status #
@@ -281,14 +276,14 @@ bar {
     padding 0px 5px 
     tray_output none
     colors {
-        background $dred
-        separator  $white
+        background $bg0
+        separator  $txt
         statusline $txt
 
 #		<colorclass>		<brdr>	<bg>	<txt>
-		focused_workspace	$black	$teal	$black
-		inactive_workspace	$dred	$dteal	$ttxt
-		urgent_workspace	$black	$ured	$white
+		focused_workspace	$brd	$bg0    $txt 
+		inactive_workspace  $bg0	$bg0    $brd
+		urgent_workspace    $red    $bg0    $red
 	}
 }
 
