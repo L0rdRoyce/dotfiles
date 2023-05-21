@@ -6,4 +6,4 @@ neovim\
 alacritty\
 picom\
 betterlockscreen\
-zsh (TODO)
+bash (TODO: zsh)
