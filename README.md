@@ -6,4 +6,5 @@ neovim\
 alacritty\
 picom\
 betterlockscreen\
-bash (TODO: zsh)
+bash (TODO: zsh)\
+rofi, dunst, cronie
