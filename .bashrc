@@ -2,15 +2,25 @@
 # ~/.bashrc
 #
 
-# Use bash-completion, if available
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"
+export XDG_DATA_HOME="$XDG_CONFIG_HOME/local/share"
+export XDG_STATE_HOME="$XDG_CONFIG_HOME/local/state"
 
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-    . /usr/share/bash-completion/bash_completion
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
+
+export CARGO_HOME="XDG_DATA_HOME/cargo"
 
 export PATH="$HOME/.config/emacs/bin:$PATH"
 export PATH="$HOME/.config/MyScripts:$PATH"
+export EDITOR="nvim"
+export VISUAL="nvim"
 
-source ~/.git-prompt.sh
+source $XDG_CONFIG_HOME/git/git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
 
 # Source global definitions
 #if [ -f /etc/bash.bashrc ]; then
