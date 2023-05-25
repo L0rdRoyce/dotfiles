@@ -1,5 +1,5 @@
 # My i3-config: 
-### Plans to change arrow key bindings ###
+# Colorscheme aligned with navarasu/onedark
 
 #######################
 # config starts here: #
@@ -15,10 +15,10 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes' 'i3-msg exit'"
 
 # Font for window titles. 
-font pango:JetBrains Mono Nerd Font 11
+font pango:JetBrainsMono Nerd Font 11
 
 ####################################
 # Autostart applications/processes #
@@ -27,17 +27,21 @@ font pango:JetBrains Mono Nerd Font 11
 # Keyboard settings
 exec_always --no-startup-id setxkbmap -layout us -variant dvorak -option ctrl:nocaps
 
-# Disablke Touchpad on start
-exec_always toggle-touchpad.sh
+# Disable Touchpad on start
+exec toggle-touchpad.sh
 
-# solves tumblker hang problkem according to arch wike
+# Make battery charge up to 60% only. (Battery Lifespan Mode Asus)
+#echo 60 | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold
+exec_always --no-startup-id alacritty --hold -e echo 'echo 60 | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold'
+
+# solves tumbler hang problkem according to arch wike
 exec_always tumbler-hang.sh
 
 # num lock activated
 exec --no-startup-id numlockx on
 
 # wallpaper
-exec --no-startup-id sleep 1 && feh --bg-tile ~/pic/Wallpapers/itachi.jpg
+exec --no-startup-id sleep 1 && feh --no-fehbg --bg-tile ~/pic/Wallpapers/itachi.jpg
 
 # flameshot (screenshot tool)
 exec --no-startup-id /usr/bin/flameshot
@@ -84,12 +88,18 @@ bindsym Print exec "flameshot gui"
 # rofi binding:
 bindsym $mod+d exec rofi -modi drun -show drun
 
-# Use pactl to adjust volume in PulseAudio.
+# pactl
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# playerctl
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 #################
 # App Shortcuts #
@@ -118,7 +128,6 @@ bindsym $mod+k focus up
 bindsym $mod+h focus left
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Left focus left
@@ -130,15 +139,8 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
 # toggle next window split
 bindsym $mod+v split toggle
-
 
  # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -293,8 +295,6 @@ bar {
 
 # picom
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
-
-
 
 
 ####	        		####
