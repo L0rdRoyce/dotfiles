@@ -30,10 +30,6 @@ exec_always --no-startup-id setxkbmap -layout us -variant dvorak -option ctrl:no
 # Disable Touchpad on start
 exec toggle-touchpad.sh
 
-# Make battery charge up to 60% only. (Battery Lifespan Mode Asus)
-#echo 60 | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold
-exec_always --no-startup-id alacritty --hold -e echo 'echo 60 | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold'
-
 # solves tumbler hang problkem according to arch wike
 exec_always tumbler-hang.sh
 
@@ -90,10 +86,10 @@ bindsym $mod+d exec rofi -modi drun -show drun
 
 # pactl
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec volumechange up
+bindsym XF86AudioLowerVolume exec volumechange down
+bindsym XF86AudioMute exec volumechange mute
+bindsym XF86AudioMicMute exec volumechange mic_mute
 
 # playerctl
 bindsym XF86AudioPause exec playerctl play-pause
