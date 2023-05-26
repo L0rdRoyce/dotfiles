@@ -2,9 +2,9 @@
 My configuration files.
 
 i3 - i3bar - i3status\
-neovim\
-alacritty\
+alacritty-neovim-doom emacs\
 picom\
 betterlockscreen\
 bash (TODO: zsh)\
-rofi, dunst, cronie
+rofi, dunst, cronie\
+acpilight as xbacklight replacement\
