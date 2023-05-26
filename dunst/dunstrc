@@ -4,13 +4,13 @@
     class = Dunst
 
     # Text
-    font = JetBrainsMono Nerd Font Regular 10
+    font = JetBrainsMono Nerd Font Regular 11
     markup = full
     format = "<b>%s</b>\n%b"
     show_age_threshold = -1
 
     # Geometry
-    width = (300, 500)
+    width = (200, 500)
     height = 300
     origin = top-right
     offset = 10x35
@@ -20,7 +20,7 @@
     text_icon_padding = 0
 
     notification_limit = 10
-    indicate_hidden = yes
+    indicate_hidden = no
 
     # Frame
     frame_width = 3
@@ -58,7 +58,7 @@
 [urgency_normal]
     background = "#1a212e"
     foreground = "#93a4c3"
-    frame_color = "#1c4a6e"
+    frame_color = "#1a212e"
     timeout = 10
     default_icon = /home/royce/.config/dunst/normal.png 
 
