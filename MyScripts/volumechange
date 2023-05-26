@@ -1,0 +1,49 @@
+#!/bin/bash
+
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+function notify() {
+    VOLUME=`pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+(?=%)' | uniq`
+    dunstify "Volume: ${VOLUME}%" -a "volumechange" -r 9992 -h int:value:"$VOLUME" -i ~/.config/dunst/volume-$1.png -t 2000
+
+}
+
+function mute_notify() {
+    IS_MUTE=`pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}'`
+    if [ $IS_MUTE == "yes" ]; then
+        dunstify "MUTED" -a "volumechange" -r 9992 -i ~/.config/dunst/volume-mute.png -t 2000
+    else
+        dunstify "UNMUTED" -a "volumechange" -r 9992 -i ~/.config/dunst/volume-unmute.png -t 2000
+    fi
+}
+
+function mic_mute_notify() {
+    IS_MIC_MUTE=`pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}'`
+    if [ $IS_MIC_MUTE == "yes" ]; then
+        dunstify "MIC MUTED" -a "volumechange" -r 9992 -i ~/.config/dunst/mic-mute.png -t 2000
+    else
+        dunstify "MIC UNMUTED" -a "volumechange" -r 9992 -i ~/.config/dunst/mic-unmute.png -t 2000
+    fi
+}
+
+case $1 in
+up)
+    pactl set-sink-mute @DEFAULT_SINK@ 0 # Unmute if muted
+    pactl set-sink-volume @DEFAULT_SINK@ +5% # Raise volume by 5%
+    notify $1
+    ;;
+down)
+    pactl set-sink-mute @DEFAULT_SINK@ 0 # Unmute if muted
+    pactl set-sink-volume @DEFAULT_SINK@ -5% # Reduce volume by 5%
+    notify $1
+    ;;
+mute)
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    mute_notify
+    ;;
+mic_mute)
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    mic_mute_notify
+    ;;
+esac
