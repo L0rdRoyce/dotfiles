@@ -84,18 +84,21 @@ bindsym Print exec "flameshot gui"
 # rofi binding:
 bindsym $mod+d exec rofi -modi drun -show drun
 
-# pactl
-set $refresh_i3status killall -SIGUSR1 i3status
+# Volume control with volumechange script
 bindsym XF86AudioRaiseVolume exec volumechange up
 bindsym XF86AudioLowerVolume exec volumechange down
-bindsym XF86AudioMute exec volumechange mute
-bindsym XF86AudioMicMute exec volumechange mic_mute
+bindsym XF86AudioMute exec volumechange sink
+bindsym XF86AudioMicMute exec volumechange source
 
 # playerctl
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+# Brightness with acpilight and brightnesschange script
+bindsym XF86MonBrightnessUp exec brightnesschange up
+bindsym XF86MonBrightnessDown exec brightnesschange down
 
 #################
 # App Shortcuts #
@@ -108,7 +111,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+Return exec alacritty -e nvim
 
 #start emacs client
-bindsym $alt+Return exec emacsclient -c -a 'run_vim'
+bindsym $alt+Return exec emacsclient -c -a 'run-vim'
 
 bindsym $mod+b exec brave
 bindsym $mod+n exec thunar
