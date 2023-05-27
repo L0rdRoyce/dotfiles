@@ -1,0 +1,22 @@
+#!/bin/bash
+# DESCRIPTION: Change perceived backlight brightness of display in steps of 10%
+
+# Uses acpilight as a replacement of xbacklight
+# Uses perceived brightness: To learn more:
+# https://konradstrack.ninja/blog/changing-screen-brightness-in-accordance-with-human-perception/
+# Keybinds:
+# [Increase Brightness] : brightnesschange up
+# [Decrease Brightness] : brightnesschange down
+
+export DISPLAY=:0 
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+notify() {
+    BRIGHTNESS=`xbacklight -perceived -get`
+    dunstify "Brightness: ${BRIGHTNESS}%" -a "brightnesschange" -r 9993 -h int:value:$BRIGHTNESS -i ~/.config/dunst/brightness.png -t 2000
+}
+
+case $1 in
+up) xbacklight -perceived -inc 10; notify ;;
+down) xbacklight -perceived -dec 10; notify ;;
+esac

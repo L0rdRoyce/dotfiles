@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 period=20
 tumblerpath="/usr/lib/*/tumbler-1/tumblerd" # The * here should find the right one, whether 32 and 64-bit
 cpu_threshold=50

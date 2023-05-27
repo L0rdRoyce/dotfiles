@@ -1,49 +1,34 @@
 #!/bin/bash
+# DESCRIPTION: Change volume, toggle output mute, toggle mic mute and send notification of each action.
+
+# Uses pactl to control volume, toggle mute and toggle mic.
+# Uses Dunst to send notification of sound controls.
+# Icons must be present in the mentioned directories.
+# Uses the set_inc function to make sure volume never crosses 100%
+# Keybinds:
+# [Increase Volume] : volumechange up
+# [Decrease Volume] : volumechange down
+# [Toggle mute] : volumechange sink
+# [Toggle mic] : volumechange source
 
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 
-function notify() {
-    VOLUME=`pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+(?=%)' | uniq`
-    dunstify "Volume: ${VOLUME}%" -a "volumechange" -r 9992 -h int:value:"$VOLUME" -i ~/.config/dunst/volume-$1.png -t 2000
+get_volume() { echo `pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+(?=%)' | uniq`; }
 
-}
+is_mute() { echo `pactl get-$1-mute @DEFAULT_${1^^}@ | awk '{print $2}'`; }
 
-function mute_notify() {
-    IS_MUTE=`pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}'`
-    if [ $IS_MUTE == "yes" ]; then
-        dunstify "MUTED" -a "volumechange" -r 9992 -i ~/.config/dunst/volume-mute.png -t 2000
-    else
-        dunstify "UNMUTED" -a "volumechange" -r 9992 -i ~/.config/dunst/volume-unmute.png -t 2000
-    fi
-}
+mute_toggle() { pactl set-$1-mute @DEFAULT_${1^^}@ toggle; }
 
-function mic_mute_notify() {
-    IS_MIC_MUTE=`pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}'`
-    if [ $IS_MIC_MUTE == "yes" ]; then
-        dunstify "MIC MUTED" -a "volumechange" -r 9992 -i ~/.config/dunst/mic-mute.png -t 2000
-    else
-        dunstify "MIC UNMUTED" -a "volumechange" -r 9992 -i ~/.config/dunst/mic-unmute.png -t 2000
-    fi
-}
+volume_notify() { dunstify "Volume: $(get_volume)%" -a "volumechange" -r 9992 -h int:value:$(get_volume) -i ~/.config/dunst/volume-$1.png -t 2000; }
+
+mute_notify() { dunstify "${2^^}D" -a "volumechange" -r 9992 -i ~/.config/dunst/$1-$2.png -t 2000; }
+
+set_inc() { [[ $(($(get_volume)+5)) -gt 100 ]] && echo $((100-$(get_volume))) || echo 5; }
+
+set_volume() { [ $1 == "up" ] && pactl set-sink-volume @DEFAULT_SINK@ +$(set_inc)% || pactl set-sink-volume @DEFAULT_SINK@ -5%; }
 
 case $1 in
-up)
-    pactl set-sink-mute @DEFAULT_SINK@ 0 # Unmute if muted
-    pactl set-sink-volume @DEFAULT_SINK@ +5% # Raise volume by 5%
-    notify $1
-    ;;
-down)
-    pactl set-sink-mute @DEFAULT_SINK@ 0 # Unmute if muted
-    pactl set-sink-volume @DEFAULT_SINK@ -5% # Reduce volume by 5%
-    notify $1
-    ;;
-mute)
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
-    mute_notify
-    ;;
-mic_mute)
-    pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    mic_mute_notify
-    ;;
+up | down) pactl set-sink-mute @DEFAULT_SINK@ 0; set_volume $1; volume_notify $1 ;;
+sink | source) $(mute_toggle $1); [ $(is_mute $1) == "yes" ] && mute_notify $1 mute || mute_notify $1 unmute ;;
 esac
