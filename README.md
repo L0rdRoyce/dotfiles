@@ -4,7 +4,7 @@ My configuration files.
 i3 - i3bar - i3status\
 alacritty-neovim-doom emacs\
 picom\
-betterlockscreen\
+betterlockscreen -u "path-to-image"\
 bash (TODO: zsh)\
 rofi, dunst, cronie\
 acpilight as xbacklight replacement
